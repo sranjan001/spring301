@@ -1,13 +1,17 @@
 package com.vmware.training.spring301;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -16,6 +20,10 @@ public class BookControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
 
     /**
@@ -45,4 +53,63 @@ public class BookControllerTests {
 
     }
 
+    @Test
+    public void postBook_WillReturn201() throws Exception {
+
+        Book newBook = Book.builder()
+                .name("New Book")
+                .price(10.0d)
+                .build();
+
+        String newBookJson = objectMapper.writeValueAsString(newBook);
+
+        mockMvc.perform(post("/books")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(newBookJson))
+                .andExpect(status().is(201));
+    }
+
+    @Test
+    public void postBook_willReturnBadRequest_if_NullBookName() throws Exception {
+        Book newBook = Book.builder()
+                .author("New Author")
+                .price(10.0)
+                .build();
+
+        String newBookJson = objectMapper.writeValueAsString(newBook);
+
+        mockMvc.perform(post("/books")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newBookJson))
+                .andExpect(status().is(400));
+    }
+
+    @Test
+    public void postBook_WillCreateBook() throws Exception {
+
+        Book newBook = Book.builder()
+                .name("New Book")
+                .author("New Author")
+                .price(10.0)
+                .build();
+
+        String newBookJson = objectMapper.writeValueAsString(newBook);
+
+        mockMvc.perform(post("/books")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newBookJson))
+                .andExpect(status().is(201));
+
+        //This is an incomplete test till this point because we are not sure if the newly created book was persiste or not
+        //To verify call the get books and ascertain that
+
+        mockMvc.perform(get("/books"))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[1].name", is("New Book")))
+                .andExpect(jsonPath("$[1].author", is("New Author")))
+                .andExpect(jsonPath("$[1].price", is(10.0), Double.class));
+
+
+
+    }
 }

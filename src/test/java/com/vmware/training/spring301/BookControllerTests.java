@@ -8,7 +8,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -147,5 +148,23 @@ public class BookControllerTests {
                 .andExpect( jsonPath("$[0].price", is(20.0), Double.class));
 
 
+    }
+
+    @Test
+    public void getBook_WillReturnBook_WithGivenId() throws Exception {
+
+        //Get
+        mockMvc.perform(get("/books/1"))
+                .andExpect(jsonPath("$.name", is("Spring Boot")))
+                .andExpect(jsonPath("$.author", is("Josh Long")))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void getBook_WillReturn404_IfNotFoud() throws Exception {
+
+        mockMvc.perform(get("/books/100"))
+                .andExpect(status().isNotFound());
     }
 }

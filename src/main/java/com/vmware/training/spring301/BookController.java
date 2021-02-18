@@ -59,4 +59,17 @@ public class BookController {
         return book;
 
     }
+
+
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Book> getBook(@PathVariable("id") Integer id) {
+        Book book = bookRepository.get(id);
+
+        if(book != null)
+            return ResponseEntity.ok(book);
+        else
+            return ResponseEntity.notFound().build();
+    }
+
+
 }

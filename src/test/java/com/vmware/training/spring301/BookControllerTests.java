@@ -167,4 +167,22 @@ public class BookControllerTests {
         mockMvc.perform(get("/books/100"))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void deleteBook_WillDeleteBook_WithGivenId() throws Exception {
+
+        mockMvc.perform(delete("/books/1"))
+                .andExpect(status().isOk());
+
+        //assert
+        mockMvc.perform(get("/books/1"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void deleteBook_WillDeleteBook_WithIdNotFound() throws Exception {
+
+        mockMvc.perform(delete("/books/100"))
+                .andExpect(status().isNotFound());
+    }
 }

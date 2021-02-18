@@ -72,4 +72,17 @@ public class BookController {
     }
 
 
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity deleteBook(@PathVariable("id") Integer id) {
+
+        if(bookRepository.containsKey(id)) {
+            bookRepository.remove(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+
 }

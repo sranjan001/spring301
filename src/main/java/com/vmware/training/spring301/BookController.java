@@ -1,33 +1,31 @@
 package com.vmware.training.spring301;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class BookController {
 
-    private List<Book> bookRepository = new ArrayList<>();
+    private Map<Integer, Book> bookRepository = new HashMap<>();
 
     public BookController() {
         Book book = Book.builder()
+                .id(1)
                 .name("Spring Boot")
                 .author("Josh Long")
                 .price(40.5d)
                 .build();
 
-        bookRepository.add(book);
+        bookRepository.put(1, book);
     }
 
     @GetMapping ("/books")
-    public List<Book> getBooks(){
-        return bookRepository;
+    public Collection<Book> getBooks(){
+        return bookRepository.values();
     }
 
     @PostMapping("/books")
@@ -37,12 +35,28 @@ public class BookController {
             return ResponseEntity.badRequest().body("Book name cannot be empty");
 
         book.setId(bookRepository.size() + 1);
-        bookRepository.add(book);
+        bookRepository.put(book.getId(), book);
 
         return ResponseEntity
                 .ok(book)
                 .status(201)
                 .build();
+
+    }
+
+    @PutMapping("/books/{id}")
+    public Book updateBook(@PathVariable("id") Integer id, @RequestBody Book updatedBook) {
+
+        Book book = bookRepository.get(id);
+
+        book.setName(updatedBook.getName());
+        book.setAuthor(updatedBook.getAuthor());
+        book.setPrice(updatedBook.getPrice());
+
+        bookRepository.put(book.getId(), book);
+        book = bookRepository.get(id);
+
+        return book;
 
     }
 }

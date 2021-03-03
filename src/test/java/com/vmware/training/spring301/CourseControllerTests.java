@@ -9,8 +9,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(BookController.class)
-public class BookControllerTests {
+@WebMvcTest(CourseController.class)
+public class CourseControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -22,14 +22,14 @@ public class BookControllerTests {
      */
     @Test
     @Disabled
-    public void getBooks_WillReturn_404() throws Exception {
-        mockMvc.perform(get("/books"))
+    public void getCourses_WillReturn_404() throws Exception {
+        mockMvc.perform(get("/courses"))
                 .andExpect(status().is(404));
     }
 
     @Test
-    public void getBooks_WillReturn_200() throws Exception {
-        mockMvc.perform(get("/books"))
+    public void getCourses_WillReturn_200() throws Exception {
+        mockMvc.perform(get("/courses"))
                 .andExpect(status().is(200));
     }
 

@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BookController {
+public class CourseController {
 
-    @GetMapping("/books")
-    public void getBooks() {
+    @GetMapping("/courses")
+    public void getCourses() {
 
     }
 }

@@ -13,6 +13,6 @@ Tags
 
 0.5 : Update Book ( PUT )
 
-0.6 : Get book by id ( GET )
+0.6 : Get course by id ( GET )
 
-0.7 : Delete a book ( DEL )
+0.7 : Delete a course ( DEL )

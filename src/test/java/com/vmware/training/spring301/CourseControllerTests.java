@@ -8,16 +8,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(BookControllerTests.class)
-public class BookControllerTests {
+@WebMvcTest(CourseControllerTests.class)
+public class CourseControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
 
     @Test
-    public void getBooks_WillReturn_404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/books"))
+    public void getCourses_WillReturn_404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/courses"))
                 .andExpect(status().is(404));
     }
 

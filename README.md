@@ -7,12 +7,12 @@ Tags
  
 0.2 : 200 Test
 
-0.3 : Get Books   ( GET )
+0.3 : Get Courses   ( GET )
 
-0.4 : Create Book ( POST )
+0.4 : Create Course ( POST )
 
-0.5 : Update Book ( PUT )
+0.5 : Update Course ( PUT )
 
-0.6 : Get course by id ( GET )
+0.6 : Get Course by id ( GET )
 
-0.7 : Delete a course ( DEL )
+0.7 : Delete a Course ( DEL )

@@ -7,15 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-public class BookController {
+public class CourseController {
 
-    @GetMapping ("/books")
-    public List<Book> getBooks(){
+    @GetMapping ("/courses")
+    public List<Course> getBooks(){
 
-        Book book = Book.builder()
+        Course book = Course.builder()
                 .name("Spring Boot")
-                .author("Josh Long")
-                .price(40.5d)
                 .build();
 
         return Arrays.asList(book);

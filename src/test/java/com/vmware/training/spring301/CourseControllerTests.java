@@ -11,8 +11,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(BookController.class)
-public class BookControllerTests {
+@WebMvcTest(CourseController.class)
+public class CourseControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -24,24 +24,22 @@ public class BookControllerTests {
      */
     @Test
     @Disabled
-    public void getBooks_WillReturn_404() throws Exception {
-        mockMvc.perform(get("/books"))
+    public void getCourse_WillReturn_404() throws Exception {
+        mockMvc.perform(get("/courses"))
                 .andExpect(status().is(404));
     }
 
     @Test
-    public void getBooks_WillReturn_200() throws Exception {
-        mockMvc.perform(get("/books"))
+    public void getCourse_WillReturn_200() throws Exception {
+        mockMvc.perform(get("/courses"))
                 .andExpect(status().is(200));
     }
 
     @Test
-    public void getBooks_WillReturn_BookList() throws Exception {
-        mockMvc.perform(get("/books"))
+    public void getCourse_WillReturn_BookList() throws Exception {
+        mockMvc.perform(get("/courses"))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$[0].name", is("Spring Boot")))
-                .andExpect(jsonPath("$[0].author", is("Josh Long")))
-                .andExpect(jsonPath("$[0].price", is(40.5), Double.class));
+                .andExpect(jsonPath("$[0].name", is("Spring Boot")));
 
     }
 

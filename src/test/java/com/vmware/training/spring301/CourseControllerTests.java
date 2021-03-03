@@ -39,7 +39,8 @@ public class CourseControllerTests {
     public void getCourse_WillReturn_BookList() throws Exception {
         mockMvc.perform(get("/courses"))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$[0].name", is("Spring Boot")));
+                .andExpect(jsonPath("$[0].name", is("Spring Boot")))
+                .andExpect(jsonPath("$[0].durationDays", is(20)));
 
     }
 

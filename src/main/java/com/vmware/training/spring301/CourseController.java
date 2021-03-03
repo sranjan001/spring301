@@ -14,6 +14,7 @@ public class CourseController {
 
         Course book = Course.builder()
                 .name("Spring Boot")
+                .durationDays(20)
                 .build();
 
         return Arrays.asList(book);

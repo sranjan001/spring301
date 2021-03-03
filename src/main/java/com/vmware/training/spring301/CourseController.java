@@ -13,6 +13,7 @@ public class CourseController {
     public List<Course> getBooks(){
 
         Course book = Course.builder()
+                .id(1)
                 .name("Spring Boot")
                 .durationDays(20)
                 .build();

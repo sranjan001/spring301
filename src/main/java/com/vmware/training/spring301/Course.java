@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class Course {
 
+    private Integer id;
     private String name;
     private int durationDays;
 

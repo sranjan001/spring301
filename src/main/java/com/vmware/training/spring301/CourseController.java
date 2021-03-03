@@ -16,6 +16,7 @@ public class CourseController {
 
     public CourseController() {
         Course course = Course.builder()
+                .id(1)
                 .name("Spring Boot")
                 .duration(20)
                 .build();
